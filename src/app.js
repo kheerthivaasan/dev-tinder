@@ -2,36 +2,21 @@ const express=require('express');
 
 const app=express();
 
+const {adminAuth,userAuth}=require("../middlewares/auth")
 
-app.use('/user',(req,res,next)=>{
-    console.log('route handler user1');
-    res.send('handler1');
-    next()
-},
-(req,res)=>{
-console.log('route handler 2');
-res.send('handler 2')
-}
+app.use('/admin',adminAuth)
 
-)
+app.get('/user',userAuth,(req,res)=>{
+    res.send('user data fetched')
+})
 
-app.get('/admin',
-    [(req,res,next)=>{
-    console.log('route handler 1');
-    // res.send('handler 1')
-    next();
-},(req,res,next)=>{
-    console.log('route handler 2');
-    // res.send('handler 1');
-    next();
-},(req,res,next)=>{
-    console.log('route handler 3');
-    // res.send('handler 1')
-    next();
-},(req,res,next)=>{
-    console.log('route handler 4');
-    res.send('handler 4')
-}])
+app.post('/user/login',(req,res)=>{
+    res.send('user logged in')
+})
+
+app.get('/admin/getAlldata',(req,res)=>{
+    res.send('admin get all data')
+})
 
 
 app.listen(3000,()=>{
