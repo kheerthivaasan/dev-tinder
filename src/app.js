@@ -14,9 +14,24 @@ app.get('/user',userAuth,(req,res)=>{
     res.send('user data fetched')
 })
 
-app.get('/admin/getAllData',(res,req)=>{
-    res.send('All data sent')
+app.get('/admin/getAllData',(req,res)=>{
+    // try{
+throw new Error('ssafasf')
+        res.send('All data sent')
+        next();
+    // }
+    // catch(err){
+    //     res.send('something went wrong')
+    // }
 })
+
+app.use('/',(err,req,res,next)=>{
+    if(err){
+        res.status(500).send('something went wrong')
+    }
+})
+
+
 
 
 
